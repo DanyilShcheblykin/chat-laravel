@@ -23,6 +23,7 @@ class AuthController extends Controller
 
     private function generateTempToken($validatedData)
     {
+        Log::info("hello");
         $token = Str::random(60); 
         $expiration = Carbon::now()->addMinutes(30);
 
