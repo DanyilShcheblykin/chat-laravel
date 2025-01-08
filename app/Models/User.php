@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Http\Requests\Auth\RegisterRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
@@ -36,12 +37,13 @@ class User extends Authenticatable
         ];
     }
 
-    public static function create(RegisterRequest $data)
+    public static function create(array $data)
     {
+        Log::info('data' , $data);
         return self::query()->create([
-            'name' => $data->name,
-            'email' => $data->email,
-            'password' => bcrypt($data->password),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
             'verified' => false
         ]);
     }
